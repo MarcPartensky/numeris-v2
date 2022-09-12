@@ -1,7 +1,5 @@
 FROM php:7.2-apache
 
-RUN mkdir -p /home/numeris
-
 # Install packages
 RUN apt-get update && apt-get install -y \
     git \
@@ -28,11 +26,9 @@ WORKDIR /home/numeris
 RUN composer install --no-interaction
 
 # Final touch
-RUN . ~/.bashrc
+# RUN . ~/.bashrc
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN usermod -u 1000 www-data
 RUN chown -R www-data:www-data /home/numeris
 RUN chown -R www-data:www-data /var/log/apache2/
-
-WORKDIR /home/numeris
